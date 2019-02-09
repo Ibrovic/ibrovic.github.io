@@ -28,7 +28,7 @@ body {
 
 
 .row.hidden.mine{
-    background-color: red;
+    /* background-color: red; */
 }
 
 .row.hidden {
