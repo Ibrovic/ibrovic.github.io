@@ -26,10 +26,10 @@ body {
     align-items: center;
 }
 
-
+/* 
 .row.hidden.mine{
-    /* background-color: red; */
-}
+    background-color: red;
+} */
 
 .row.hidden {
     background-color: #178340;
@@ -105,39 +105,3 @@ transform: translateX(-50%) translateY(-50%);
 }
 
 
-
-/* 
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translateX(-50%) translateY(-50%);
-color: #17D4FE;
-font-size: 60px;
-font-family: Orbitron;
-letter-spacing: 7px; */
-
-
-/* //////////////////////////////////////// */
-
-
-
-/* 
-body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 600px;
-    text-align: center;
-}
-
-
-.main{
-    position: absolute;
-    display: inline-flex;
-    width: 510px;
-    height: 510px;
-    border: 1px solid black;
-}  */
