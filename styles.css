@@ -194,7 +194,13 @@ body {
     justify-content: center;
 }
 
-
+@media only screen and (max-width: 500px){
+    body{
+        height: 100%;
+        background-position: bottom;
+        width: 100%;
+    }
+}
 
 
 
