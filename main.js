@@ -28,13 +28,15 @@ function createBoard(colums, rows, mines) {
                 .addClass("row hidden")
                 .attr("data-col", i)
                 .attr("data-row", j);
-                if(colums === "10"){
-                   $($row).addClass("row10");
-                } else if(colums === "15"){
-                    $($row).addClass("row15");
-                } else{
-                    $($row).addClass("row20");
-                }
+
+            if (colums === "10") {
+                $($row).addClass("row10");
+            } else if (colums === "15") {
+                $($row).addClass("row15");
+            } else {
+                $($row).addClass("row20");
+            }
+
             if (Math.random() < mines) {
                 $row.addClass("mine");
             }
@@ -52,9 +54,13 @@ function gameOver(isWin) {
     var icon = null;
     if (isWin) {
         icon = "fa fa-flag";
+        $("#smile-pic").css("color", "green");
+        $board.append($("<img>").attr("src", "background/win.gif").addClass("winner").hide().show("slow"));
     }
     else {
         icon = "fa fa-bomb";
+        $("#smile-pic").removeClass("fa-smile-beam").addClass("fa-frown-open").css("color", "red");
+        $board.append($("<img>").attr("src", "background/explosion.gif").addClass("explosion"));
     }
     $(".row.mine").append(
         $("<i>").addClass(icon)
@@ -68,22 +74,20 @@ function gameOver(isWin) {
             );
             return count === 0 ? "" : count;
         })
-    
-    $("#smile-pic").removeClass("fa-smile-beam").addClass("fa-frown-open").css("color", "red");
-    $board.append($("<img>").attr("src", "background/explosion.gif").addClass("explosion"));
-    
+
     setTimeout(() => {
         $(".explosion").remove();
         $('.row.hidden').removeClass('hidden');
     }, 1000);
+  
 
     setTimeout(function () {
 
         $("#board").addClass("hide");
         $("#start").addClass("hide");
         $("#enter-score").removeClass("hide");
-
         $(".top").addClass("hide");
+        $(".winner").remove();
 
         var min = $("#min").html();
         var sec = $("#sec").html();
@@ -189,24 +193,29 @@ function getMineCount(i, j) {
 }
 
 
-$board.on("click", ".row.hidden", function () {
-    var $cell = ($(this));
-    var col = $cell.data("col");
-    var row = $cell.data("row");
+$board.on("click", ".row.hidden", function (event) {
+    if ($(event.target).hasClass("flag")) {
+        event.preventDefault();
+    } else {
+        var $cell = ($(this));
+        var col = $cell.data("col");
+        var row = $cell.data("row");
 
-    if ($cell.hasClass("mine")) {
-        gameOver(false);
-    }
-    else {
-        reveal(col, row);
-        var isGameOver = $(".row.hidden").length === $(".row.mine").length
-        var displayScore = $(".row").length - $(".hidden").length;
-        $(".score").html(displayScore);
+        if ($cell.hasClass("mine")) {
+            gameOver(false);
+        }
+        else {
+            reveal(col, row);
+            var isGameOver = $(".row.hidden").length === $(".row.mine").length
+            var displayScore = $(".row").length - $(".hidden").length;
+            $(".score").html(displayScore);
 
-        if (isGameOver) {
-            gameOver(true);
+            if (isGameOver) {
+                gameOver(true);
+            }
         }
     }
+
 });
 
 
@@ -265,31 +274,31 @@ $(".hid").on("click", (event) => {
 $board.contextmenu(function (event) {
     event.preventDefault();
     console.log(event.target);
-    
+
     if ($(event.target).hasClass("hidden")) {
-            $(event.target).addClass("remove-flag").append($("<i>").addClass("fa fa-flag flag"));
+        $(event.target).addClass("remove-flag").append($("<i>").addClass("fa fa-flag flag"));
     } else if ($(event.target).hasClass("flag")) {
         ($(event.target)).remove()
     }
 });
 
 
-$("body").keydown(function(e){
+$("body").keydown(function (e) {
     console.log(e, "97");
-    
-    if(e.originalEvent.key === "a"){
+
+    if (e.originalEvent.key === "a") {
         console.log(e, "97");
-        $(".mine").css('background', 'red');  
+        $(".mine").css('background', 'red');
     }
-    
+
 });
 
-$("body").keyup(function(e){
+$("body").keyup(function (e) {
     console.log(e, "97");
-    
-    if(e.originalEvent.key === "a"){
+
+    if (e.originalEvent.key === "a") {
         console.log(e, "97");
-        $(".mine").css('background', 'grey');  
+        $(".mine").css('background', 'grey');
     }
-    
+
 });
