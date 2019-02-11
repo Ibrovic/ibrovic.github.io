@@ -1,20 +1,52 @@
+@font-face {
+    font-family: "Game font";
+    src: url("fonts/ARCADE.TTF");
+    }
+
 body {
     font-family: 'Inconsolata', monospace;
     text-align: center;
+    background-image: url("background/bomb.png");
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
   
+.title{
+    font-family: "Game font";
+    font-size: 40px;
+    color: white;
+    letter-spacing: 7px; 
+}
+
 .board {
+    position: relative;
     border: 1px solid black;
     display: flex;
     display: inline-flex;
 }
 
+.row10{
+    height: 50px;           
+    width: 50px; 
+}
+
+.row15{
+    width: 33px;
+    height: 33px;
+}
+
+.row20{
+    width: 24.5px;
+    height: 24.5px;
+}
 
 .row{
-    display: flex;
-    height: 50px;           
-    width: 50px;                         
-    background-color: rgb(214, 214, 214);
+    display: flex;                        
+    background-color: rgba(255, 255, 255, 0.13);
     border-right: 1px solid white;
     border-bottom: 1px solid white; 
     vertical-align: top;
@@ -26,13 +58,13 @@ body {
     align-items: center;
 }
 
-/* 
-.row.hidden.mine{
-    background-color: red;
-} */
+.explosion{
+    position: absolute;
+    width: 100%;
+}
 
 .row.hidden {
-    background-color: #178340;
+    background-color: grey;
     cursor: pointer;
 }
   
@@ -51,6 +83,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 25px;
 }
 
 .start-wraper div{
@@ -60,17 +93,43 @@ body {
 
 .highscore{
     overflow-y: scroll;
-    width: 30%;
-    height: 300px;
+    width: 100%;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.highscore::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Demonstrate a "mostly customized" scrollbar
+   * (won't be visible otherwise if width/height is specified) */
+  .highscore::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: #aaa; /* or add it to the track */
+  }
+  
+  /* Add a thumb */
+  .highscore::-webkit-scrollbar-thumb {
+      background: #000; 
+  }
+
+.highscore>div:first-child{
+    background-color: rgba(128, 128, 128, 0.719);
+    font-size: 22px;
 }
 
 .h-score-wraper{
     display: flex;
-    background: blue;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 
+.h-score-wraper:nth-child(odd){
+    background-color: rgba(128, 128, 128, 0.719);
+}
 
 .h-score-wraper div{
     width: 50%;
@@ -79,29 +138,65 @@ body {
 .clock>span{
     font-family: 'Orbitron', sans-serif;
     color: #17D4FE;
-font-size: 60px;
-font-family: Orbitron;
-letter-spacing: 7px; 
-transform: translateX(-50%) translateY(-50%);
+    font-size: 35px;
+    font-family: Orbitron;
+    letter-spacing: 7px; 
+    transform: translateX(-50%) translateY(-50%);
 
+}
+
+.clock{
+    width: 40%;
 }
 
 .top{
     display: flex;
-
     align-items: center;
     justify-content: center;
+    width: 510px;
+    height: 50px;
 }
 
+.score{
+    width: 40%;
+    font-family: 'Orbitron', sans-serif;
+    color: #17D4FE;
+    font-size: 35px;
+    letter-spacing: 7px; 
+}
+
+.smiley{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
 
 .hide{
     display: none;
 }
 
-
-
-.h-score-wraper:nth-child(even){
-    background: red;
+#smile-pic{
+    width: 30%;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: yellow;
 }
+
+.flag{
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
 
 

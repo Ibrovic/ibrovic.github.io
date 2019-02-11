@@ -14,9 +14,8 @@ function createBoard(colums, rows, mines) {
     $("#top")
         .append($("<div>").addClass("score").text("0"))
         .append($("<div>").addClass("smiley")
-            .append($("<i>").addClass("far fa-smile-beam"))
-            .append($("<i>").addClass("far fa-frown-open")))
-        .append($("<p>").addClass("clock")
+            .append($("<i>").attr("id", "smile-pic").addClass("far fa-smile-beam")))
+        .append($("<div>").addClass("clock")
             .append($("<span>").attr("id", "min").text("00"))
             .append($("<span>").text(":"))
             .append($("<span>").attr("id", "sec").text("00"))
@@ -29,6 +28,13 @@ function createBoard(colums, rows, mines) {
                 .addClass("row hidden")
                 .attr("data-col", i)
                 .attr("data-row", j);
+                if(colums === "10"){
+                   $($row).addClass("row10");
+                } else if(colums === "15"){
+                    $($row).addClass("row15");
+                } else{
+                    $($row).addClass("row20");
+                }
             if (Math.random() < mines) {
                 $row.addClass("mine");
             }
@@ -62,7 +68,15 @@ function gameOver(isWin) {
             );
             return count === 0 ? "" : count;
         })
-    $('.row.hidden').removeClass('hidden');
+    
+    $("#smile-pic").removeClass("fa-smile-beam").addClass("fa-frown-open").css("color", "red");
+    $board.append($("<img>").attr("src", "background/explosion.gif").addClass("explosion"));
+    
+    setTimeout(() => {
+        $(".explosion").remove();
+        $('.row.hidden').removeClass('hidden');
+    }, 1000);
+
     setTimeout(function () {
 
         $("#board").addClass("hide");
@@ -109,7 +123,7 @@ function gameOver(isWin) {
 
         Clock.restart();
 
-    }, 1000);
+    }, 3000);
 
 }
 
@@ -152,7 +166,6 @@ function reveal(oi, oj) {
         }
 
     }
-
     helper(oi, oj)
 }
 
@@ -172,8 +185,6 @@ function getMineCount(i, j) {
             }
         }
     }
-
-
     return count;
 }
 
@@ -201,12 +212,6 @@ $board.on("click", ".row.hidden", function () {
 
 
 
-
-
-
-
-
-
 //Events
 
 function scoreTable() {
@@ -224,7 +229,6 @@ function scoreTable() {
             $("<div>").addClass("h-time").html(score[i].time).appendTo($scoreLine);
         }
     }
-    console.log(score)
 }
 
 scoreTable();
@@ -236,13 +240,11 @@ $("#select").on("click", (event) => {
     this.mines = $("#mines").val();
     this.sec = 0;
 
-
-
     $("#board").removeClass("hide");
     $(".top").removeClass("hide");
     $("#start").addClass("hide");
     $("#enter-score").addClass("hide");
-
+    $(".hid").removeClass("hide");
 
     createBoard(colums, rows, mines);
 });
@@ -255,6 +257,7 @@ $(".hid").on("click", (event) => {
     $("#enter-score").addClass("hide");
 
     $("#top").empty();
+    $(".hid").addClass("hide");
 });
 
 
@@ -262,15 +265,31 @@ $(".hid").on("click", (event) => {
 $board.contextmenu(function (event) {
     event.preventDefault();
     console.log(event.target);
+    
     if ($(event.target).hasClass("hidden")) {
-        if ($(event.target).hasClass("remove-flag")) {
-
-            ($(event.target)).empty().removeClass("remove-flag")
-        } else {
-            $(event.target).addClass("remove-flag").append($("<i>").addClass("fa fa-flag"));
-        }
+            $(event.target).addClass("remove-flag").append($("<i>").addClass("fa fa-flag flag"));
+    } else if ($(event.target).hasClass("flag")) {
+        ($(event.target)).remove()
     }
-
-
 });
 
+
+$("body").keydown(function(e){
+    console.log(e, "97");
+    
+    if(e.originalEvent.key === "a"){
+        console.log(e, "97");
+        $(".mine").css('background', 'red');  
+    }
+    
+});
+
+$("body").keyup(function(e){
+    console.log(e, "97");
+    
+    if(e.originalEvent.key === "a"){
+        console.log(e, "97");
+        $(".mine").css('background', 'grey');  
+    }
+    
+});
